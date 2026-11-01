@@ -1,4 +1,4 @@
-export const API_URL = process.env.API_URL
+export const API_URL = process.env.API_URL?.replace(/\/+$/, "")
 export type User = { id: number; name: string; email: string; business_name: string; business_type: string; created_at: string };
 export type AuthResponse = { access_token: string; token_type: string; user: User };
 export type Item = { id: number; name: string; category: string; unit: string; quantity: string | number; unit_cost: string | number; reorder_level: string | number; notes?: string | null; created_at: string };
