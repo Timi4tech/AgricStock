@@ -1,4 +1,5 @@
-export const API_URL = process.env.API_URL?.replace(/\/+$/, "")
+"use client"
+export const API_URL =process.env.NEXT_PUBLIC_API_URL
 export type User = { id: number; name: string; email: string; business_name: string; business_type: string; created_at: string };
 export type AuthResponse = { access_token: string; token_type: string; user: User };
 export type Item = { id: number; name: string; category: string; unit: string; quantity: string | number; unit_cost: string | number; reorder_level: string | number; notes?: string | null; created_at: string };
@@ -7,6 +8,8 @@ export type Dashboard = { item_count: number; low_stock_count: number; total_sto
 export function getToken(): string | null { if (typeof window === "undefined") return null; return window.localStorage.getItem("agrostock_access_token"); }
 export function saveSession(auth: AuthResponse) { window.localStorage.setItem("agrostock_access_token", auth.access_token); window.localStorage.setItem("agrostock_user", JSON.stringify(auth.user)); }
 export function logout() { if (typeof window !== "undefined") { window.localStorage.removeItem("agrostock_access_token"); window.localStorage.removeItem("agrostock_user"); } }
+
+
 async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   const headers = new Headers(init.headers || {});
   if (init.body && !headers.has("Content-Type")) headers.set("Content-Type", "application/json");
